@@ -1,7 +1,7 @@
 # census_mega_dataset
 
 | dataset       |  variable_name             | variable_description  | temporal       | spatial     |
-|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|-------------------------------------------------|
+|---------------|----------------------------|-----------------------|----------------|----------------|
 | [community deprivation index](https://geomarker.io/dep_index/)   | fraction_poverty | fraction of population with income in past 12 months below poverty level   | 2018 5-year ACS   | 2010 tract  |
 | | median_income   | median household income in the past 12 months in 2018 inflation-adjusted dollars | 2018 5-year ACS | 2010 tract | 
 | | fraction_high_school_edu  | fraction of population 25 and older with educational attainment of at least high school graduation (includes GED equivalency) | 2018 5-year ACS | 2010 tract  |
