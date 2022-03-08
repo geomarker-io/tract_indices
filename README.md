@@ -38,4 +38,14 @@
 | Social Capital Index (from ORNL?)  |  |   |   | |
 
 
+## tract cross walk
 
+2020 tract data were calculated using area-weighted averages of 2010 tract data: 
+
+- if 1 2010 tract was split to multiple 2020 tracts, 2010 values were propagated to all 2020 tracts
+
+- if multiple 2010 tracts were combined to 1 2020 tract, 2010 values were area-weighted and averaged
+
+![](example_plots.png)
+
+yes/no variables were converted to 1/0 before averaging, then assigned "yes" if >= 0.5 or "no" otherwise.
