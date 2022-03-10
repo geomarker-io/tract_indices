@@ -25,7 +25,6 @@
 | | ozone_conc | ozone seasonal average of daily maximum 8-hour concentration (ppb) | 2018 EPA OAR | 2010 block group average |
 | | pm_conc | annual average PM2.5 level in air (ug/m3) | 2018 EPA OAR  | 2010 block group average |
 | [USDA Food Access Research Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/state-level-estimates-of-low-income-and-low-access-populations/) | low_food_access_flag  | "yes" if tract has at least 500 people or at least 33% of the tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas | 2019  | 2010 tract |
-| | low_food_access_pop | number of people living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas | 2019 | 2010 tract |
 | | low_food_acess_pct | percent of tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas            | 2019 | 2010 tract |
 | [Mental Health Professional Shortage Areas](https://bhw.hrsa.gov/workforce-shortage-areas/shortage-designation) | hpsa | mental health professional shortage area yes/no  | continuous? | 2010 tract or county down-aggregated to tract   |
 | [Child Opportunity Index](https://data.diversitydatakids.org/dataset/coi20-child-opportunity-index-2-0-database/resource/080cfe52-90aa-4925-beaa-90efb04ab7fb#dictionary_anchor) | coi_education | Weighted average of education domain component indicator z-scores, nationally normed  | 2015                       | 2010 tract |
