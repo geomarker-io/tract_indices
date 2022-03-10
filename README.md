@@ -36,7 +36,7 @@
 
 ## tract cross walk
 
-2020 tract data were calculated using area-weighted averages of 2010 tract data: 
+2020 tract data were calculated using area-weighted averages of 2010 tract data. The file `2020_to_2010_tracts.txt` (obtained from (census.gov)[https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#tract]) contains the area of each 2010 and 2020 tract overlap. These areas were used to calculate weights, defined as the percent of each 2020 tract area that was covered by the 2010 tract. Weights were then inverted, such that each weight represents the percent of each 2010 tract area that is covered by a 2020 tract, and used as follows:
 
 - if 1 2010 tract was split to multiple 2020 tracts, 2010 values were propagated to all 2020 tracts
 
