@@ -1,5 +1,7 @@
 # Recent, Nationwide, Census Tract-Level Mega Dataset
 
+## Data Dictionary
+
 | dataset       |  variable_name             | variable_description  | temporal       | spatial     |
 |---------------|----------------------------|-----------------------|----------------|----------------|
 | [community deprivation index](https://geomarker.io/dep_index/)   | fraction_poverty | fraction of population with income in past 12 months below poverty level   | 2018 5-year ACS   | 2010 tract  |
@@ -34,14 +36,8 @@
 | [Community Resilience](https://www2.census.gov/programs-surveys/demo/technical-documentation/community-resilience/2019/cre_file_layout_2019.pdf)                   | pct_1or2_risk_factors     | Rate of individuals with one-two risk factors  | 2019  | 2010 tract |
 | | pct_3ormore_risk_factors  | Rate of individuals with three plus risk factors | 2019  | 2010 tract |
 
-## tract cross walk
+## Re-estimating 2020 census tract boundaries
 
-2020 tract data were calculated using area-weighted averages of 2010 tract data. The file `2020_to_2010_tracts.txt` (obtained from (census.gov)[https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#tract]) contains the area of each 2010 and 2020 tract overlap. These areas were used to calculate weights, defined as the percent of each 2020 tract area that was covered by the 2010 tract. Weights were then inverted, such that each weight represents the percent of each 2010 tract area that is covered by a 2020 tract, and used as follows:
-
-- if 1 2010 tract was split to multiple 2020 tracts, 2010 values were propagated to all 2020 tracts
-
-- if multiple 2010 tracts were combined to 1 2020 tract, 2010 values were area-weighted and averaged
+All census tract data were obtained and/or harmonized to 2010 census tract boundaries.  Data were transformed to the 2020 census tract boundaries using area-weighted averages of 2010 data. The file `2020_to_2010_tracts.txt` (obtained from [census.gov](https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#tract)) contains the area of each 2010 and 2020 tract overlap. These areas were used to calculate weights, defined as the percent of each 2020 tract area that was covered by the 2010 tract. Weights were then inverted, such that each weight is the percent of each 2010 tract area that is covered by a 2020 tract. When multiple 2010 tracts have been combined to a single 2020 tract, 2010 values were area-weighted and averaged. (Yes/no variables were converted to 1/0 before aeraging, then assigned "yes" if >= 0.5 or "no" otherwise.) Where one 2010 tract was split to multiple 2020 tracts, 2010 values were propagated to all 2020 tracts.
 
 ![](example_plots.png)
-
-yes/no variables were converted to 1/0 before averaging, then assigned "yes" if >= 0.5 or "no" otherwise.
