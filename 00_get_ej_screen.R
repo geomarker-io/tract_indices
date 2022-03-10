@@ -14,7 +14,7 @@ d <- d %>%
          diesel_pm = DSLPM,
          cancer_risk = CANCER,
          resp_hazard_ind = RESP,
-         traffix_proximity = PTRAF,
+         traffic_proximity = PTRAF,
          major_discharger_water = PWDIS,
          nat_priority_proximity = PNPL,
          risk_management_proximity = PRMP,
@@ -31,7 +31,7 @@ d$lead_paint <- round(d$lead_paint, 2)
 d$diesel_pm <- round(d$diesel_pm, 3)
 d$cancer_risk <- round(d$cancer_risk, 1)
 d$resp_hazard_ind <- round(d$resp_hazard_ind, 2)
-d$traffix_proximity <- round(d$traffix_proximity, 1)
+d$traffic_proximity <- round(d$traffic_proximity, 1)
 d$major_discharger_water <- round(d$major_discharger_water, 5)
 d$nat_priority_proximity <- round(d$nat_priority_proximity, 3)
 d$risk_management_proximity <- round(d$risk_management_proximity, 3)
