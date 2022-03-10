@@ -1,4 +1,4 @@
-# census_mega_dataset
+# Recent, Nationwide, Census Tract-Level Mega Dataset
 
 | dataset       |  variable_name             | variable_description  | temporal       | spatial     |
 |---------------|----------------------------|-----------------------|----------------|----------------|
@@ -17,7 +17,7 @@
 | | diesel_pm | concentration of diesel particulate matter in air (ug/m3)  | 2017 EPA Hazardous Air Pollutants | 2010 block group average |
 | | cancer_risk | lifetime cancer risk from inhalation of air toxics | 2017 EPA Hazardous Air Pollutants | 2010 block group average |
 | | resp_hazard_ind  | air toxics respiratory hazard index; ratio of exposure concentration to health-based reference concentration | 2017 EPA Hazardous Air Pollutants | 2010 block group average |
-| | traffix_proximity | traffic proximity and volume; Count of vehicles (AADT, avg. annual daily traffic) at major roads within 500 meters, divided by distance in meters | 2019 U.S. Department of Transportation | 2010 block group average |
+| | traffic_proximity | traffic proximity and volume; Count of vehicles (AADT, avg. annual daily traffic) at major roads within 500 meters, divided by distance in meters | 2019 U.S. Department of Transportation | 2010 block group average |
 | | major_discharger_water  | indicator for major direct dischargers to water; RSEI modeled toxic concentrations at stream segments within 500 m divided by distance in km  | 2021 RSEI | 2010 block group average |
 | | nat_priority_proximity | proximity to National Priorities List (NPL) sites; count of proposed or listed NPL (a.k.a. superfund) sites within 5 km (or nearest one beyond 5 km) | 2021 EPA CERCLIS database | 2010 block group average |
 | | risk_management_proximity | proximity to Risk Management Plan (RMP) facilities; count of RMP (potential chemical accident management plan) facilities within 5 km (or nearest one beyond 5 km), each divided by distance in km | 2021 EPA RMP database | 2010 block group average |
@@ -25,7 +25,7 @@
 | | ozone_conc | ozone seasonal average of daily maximum 8-hour concentration (ppb) | 2018 EPA OAR | 2010 block group average |
 | | pm_conc | annual average PM2.5 level in air (ug/m3) | 2018 EPA OAR  | 2010 block group average |
 | [USDA Food Access Research Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/state-level-estimates-of-low-income-and-low-access-populations/) | low_food_access_flag  | "yes" if tract has at least 500 people or at least 33% of the tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas | 2019  | 2010 tract |
-| | low_food_acess_pct | percent of tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas            | 2019 | 2010 tract |
+| | low_food_access_pct | percent of tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas            | 2019 | 2010 tract |
 | [Mental Health Professional Shortage Areas](https://bhw.hrsa.gov/workforce-shortage-areas/shortage-designation) | hpsa | mental health professional shortage area yes/no  | continuous? | 2010 tract or county down-aggregated to tract   |
 | [Child Opportunity Index](https://data.diversitydatakids.org/dataset/coi20-child-opportunity-index-2-0-database/resource/080cfe52-90aa-4925-beaa-90efb04ab7fb#dictionary_anchor) | coi_education | Weighted average of education domain component indicator z-scores, nationally normed  | 2015                       | 2010 tract |
 | | coi_health_env | Weighted average of health and environment domain component indicator z-scores, nationally normed  | 2015 | 2010 tract |
@@ -33,13 +33,10 @@
 | | coi | Weighted average of three domain averaged z-scores, nationally normed  | 2015  | 2010 tract  |
 | [Community Resilience](https://www2.census.gov/programs-surveys/demo/technical-documentation/community-resilience/2019/cre_file_layout_2019.pdf)                   | pct_1or2_risk_factors     | Rate of individuals with one-two risk factors  | 2019  | 2010 tract |
 | | pct_3ormore_risk_factors  | Rate of individuals with three plus risk factors | 2019  | 2010 tract |
-| Crime  | |  |  | |
-| Social Capital Index (from ORNL?)  |  |   |   | |
-
 
 ## tract cross walk
 
-2020 tract data were calculated using area-weighted averages of 2010 tract data: 
+2020 tract data were calculated using area-weighted averages of 2010 tract data. The file `2020_to_2010_tracts.txt` (obtained from (census.gov)[https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#tract]) contains the area of each 2010 and 2020 tract overlap. These areas were used to calculate weights, defined as the percent of each 2020 tract area that was covered by the 2010 tract. Weights were then inverted, such that each weight represents the percent of each 2010 tract area that is covered by a 2020 tract, and used as follows:
 
 - if 1 2010 tract was split to multiple 2020 tracts, 2010 values were propagated to all 2020 tracts
 
