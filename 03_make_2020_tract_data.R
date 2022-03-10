@@ -60,6 +60,9 @@ mega_data <- mega_data %>%
   bind_rows(d) %>%
   arrange(census_tract_id)
 
-saveRDS(mega_data, 'census_mega_data.rds')
-write_csv(mega_data, 'census_mega_data.csv')
+mega_data <- mega_data %>%
+  select(-low_food_access_pop)
+
+saveRDS(mega_data, 'census_mega_data_0.1.rds')
+write_csv(mega_data, 'census_mega_data_0.1.csv')
 
