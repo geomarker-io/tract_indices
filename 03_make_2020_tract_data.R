@@ -63,6 +63,22 @@ mega_data <- mega_data %>%
 mega_data <- mega_data %>%
   select(-low_food_access_pop)
 
-saveRDS(mega_data, 'census_mega_data_0.1.rds')
-write_csv(mega_data, 'census_mega_data_0.1.csv')
+mega_data <- mega_data %>%
+  mutate(across(c(adi, median_income), ~round(.x, 0)),
+         across(c(pct_crowding, pct_1or2_risk_factors,
+                  pct_3ormore_risk_factors, walkability_index,
+                  low_food_access_pct), ~round(.x, 2)),
+         across(c(fraction_assisted_income, fraction_high_school_edu,
+                  fraction_no_health_ins, fraction_poverty,
+                  fraction_vacant_housing, dep_index, lead_paint,
+                  diesel_pm, cancer_risk, resp_hazard_ind,
+                  traffic_proximity, nat_priority_proximity,
+                  risk_management_proximity, disposal_proximity,
+                  ozone_conc, pm_conc, ice), ~round(.x, 3)),
+         across(c(coi_education, coi_health_env, coi_social_econ, coi,
+                  major_discharger_water),
+                ~round(.x, 4)))
+
+saveRDS(mega_data, 'census_mega_data_0.2.rds')
+write_csv(mega_data, 'census_mega_data_0.2.csv')
 
