@@ -18,6 +18,6 @@ walkability <- walkability %>%
 walkability <- walkability %>%
   mutate(census_tract_id = stringr::str_sub(block_group_id_2010, 1, 11)) %>%
   group_by(census_tract_id) %>%
-  summarize(walkability_index = round(mean(walkability_index, na.rm = TRUE), 2))
+  summarize(walkability_index = mean(walkability_index, na.rm = TRUE))
 
 saveRDS(walkability, 'data/walkability.rds')
