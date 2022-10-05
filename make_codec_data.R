@@ -2,8 +2,10 @@ library(tidyverse)
 library(cincy)
 library(CODECtools)
 
+# read latest version of mega data
 d <- readRDS("census_mega_data_0.2.rds")
 
+# read NASH CRN data and join
 nash <- readRDS("~/OneDrive - cchmc/NASH_CRN/Data/nash_crn_census_data_2010.rds") |>
   select(census_tract_id = census_tract_fips,
          sdi, svi_socioeconomic, svi_minority, svi_household_comp,
@@ -11,6 +13,16 @@ nash <- readRDS("~/OneDrive - cchmc/NASH_CRN/Data/nash_crn_census_data_2010.rds"
 
 d <- left_join(d, nash, by = "census_tract_id")
 
+d <- rename(d,
+            fraction_assisted_income_2018 = fraction_assisted_income,
+            fraction_high_school_edu_2018 = fraction_high_school_edu,
+            median_income_2018 = median_income,
+            fraction_no_health_ins_2018 = fraction_no_health_ins,
+            fraction_poverty_2018 = fraction_poverty,
+            fraction_vacant_housing_2018 = fraction_vacant_housing,
+            dep_index_2018 = dep_index)
+
+# create dataset attrs
 d <- d |>
   add_attrs(
     name = "census_mega_data",
@@ -19,9 +31,15 @@ d <- d |>
     url = "https://geomarker.io/census_mega_data"
   )
 
-glimpse_attr(d) |>
-  knitr::kable()
+CODECtools::glimpse_attr(d) |>
+  knitr::kable() |>
+  cat(file = "metadata.md", sep = "\n", append = TRUE)
 
+d <- mutate(d,
+            census_tract_id = as.character(census_tract_id),
+            census_tract_vintage = as.character(census_tract_vintage))
+
+# create column attrs
 d <-
   d |>
   add_col_attrs(census_tract_id, title = "Census Tract Identifier") |>
@@ -31,13 +49,13 @@ d <-
   add_col_attrs(coi_health_env, title = "Child Opportunity Index Health and Environment Domain", description = "weighted average of health and environment domain component indicator z-scores, nationally normed (2015)") |>
   add_col_attrs(coi_social_econ, title = "Child Opportunity Index Social and Economic Domain", description = "weighted average of social and economic domain component indicator z-scores, nationally normed (2015)") |>
   add_col_attrs(coi, title = "Child Opportunity Index", description = "weighted average of three domain averaged z-scores, nationally normed (2015)") |>
-  add_col_attrs(fraction_assisted_income, title = "Fraction Assisted Income", description = "fraction of households receiving public assistance income or food stamps or SNAP in the past 12 months (2018)") |>
-  add_col_attrs(fraction_high_school_edu, title = "Fraction High School Education", description = "fraction of population 25 and older with educational attainment of at least high school graduation (includes GED equivalency) (2018)") |>
-  add_col_attrs(median_income, title = "Median Household Income", description = "median household income in the past 12 months in 2018 inflation-adjusted dollars (2018)") |>
-  add_col_attrs(fraction_no_health_ins, title = "Fraction No Health Insurance", description = "fraction of poulation with no health insurance coverage (2018)") |>
-  add_col_attrs(fraction_poverty, title = "Fraction Poverty", description = "fraction of population with income in past 12 months below poverty level (2018)") |>
-  add_col_attrs(fraction_vacant_housing, title = "Fraction Vacant Housing", description = "fraction of houses that are vacant (2018)") |>
-  add_col_attrs(dep_index, title = "Material Deprivation Index", description = "composite index of 6 variables above characterizing community material deprivation; range 0 to 1, with higher values indicating higher deprivation (2018)") |>
+  add_col_attrs(fraction_assisted_income_2018, title = "Fraction Assisted Income", description = "fraction of households receiving public assistance income or food stamps or SNAP in the past 12 months (2018)") |>
+  add_col_attrs(fraction_high_school_edu_2018, title = "Fraction High School Education", description = "fraction of population 25 and older with educational attainment of at least high school graduation (includes GED equivalency) (2018)") |>
+  add_col_attrs(median_income_2018, title = "Median Household Income", description = "median household income in the past 12 months in 2018 inflation-adjusted dollars (2018)") |>
+  add_col_attrs(fraction_no_health_ins_2018, title = "Fraction No Health Insurance", description = "fraction of poulation with no health insurance coverage (2018)") |>
+  add_col_attrs(fraction_poverty_2018, title = "Fraction Poverty", description = "fraction of population with income in past 12 months below poverty level (2018)") |>
+  add_col_attrs(fraction_vacant_housing_2018, title = "Fraction Vacant Housing", description = "fraction of houses that are vacant (2018)") |>
+  add_col_attrs(dep_index_2018, title = "Material Deprivation Index", description = "composite index of 6 variables above characterizing community material deprivation; range 0 to 1, with higher values indicating higher deprivation (2018)") |>
   add_col_attrs(lead_paint, title = "Lead Paint Indicator", description = "percent of housing units built pre-1960 (2019)") |>
   add_col_attrs(diesel_pm, title = "Diesel PM Concentration", description = "concentration of diesel particulate matter in air (ug/m3) (2017)") |>
   add_col_attrs(cancer_risk, title = "Cancer Risk", description = "lifetime cancer risk from inhalation of air toxics (2017)") |>
@@ -66,18 +84,28 @@ d <-
   add_col_attrs(mrfei, title = "Modified Retail Food Environment Index", description = "percentage of healthy food retailers (2011)") |>
   add_col_attrs(food_insecurity_pct, title = "Food Insecurity Percentage", description = "estimated percentage of population in food insecure households (2019)")
 
+# add type attrs
 d <- add_type_attrs(d)
 
 glimpse_schema(d) |>
   knitr::kable()
 
-CODECtools::glimpse_attr(d) |>
-  knitr::kable() |>
-  cat(file = "metadata.md", sep = "\n", append = TRUE)
+# add harmonized historical ACS data
+options(timeout = 300)
+hh_acs <- CODECtools::read_codec("hh_acs_measures")
 
+hh_acs_recent <- hh_acs |>
+  filter(year == 2019 | year == 2020)
+
+d <- left_join(d, hh_acs_recent, by = c("census_tract_id", "census_tract_vintage"))
+
+# write csv and yaml
+write_tdr_csv(d)
+
+# add schema to metadata
 d |>
   CODECtools::glimpse_schema() |>
   knitr::kable() |>
   cat(file = "metadata.md", sep = "\n", append = TRUE)
 
-write_tdr_csv(d)
+
