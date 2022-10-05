@@ -23,6 +23,7 @@ d <- rename(d,
             dep_index_2018 = dep_index)
 
 # create dataset attrs
+cat("#### Metadata\n\n", file = "metadata.md", append = FALSE)
 d <- d |>
   add_attrs(
     name = "census_mega_data",
@@ -103,6 +104,7 @@ d <- left_join(d, hh_acs_recent, by = c("census_tract_id", "census_tract_vintage
 write_tdr_csv(d)
 
 # add schema to metadata
+cat("\n#### Schema\n\n", file = "metadata.md", append = TRUE)
 d |>
   CODECtools::glimpse_schema() |>
   knitr::kable() |>
