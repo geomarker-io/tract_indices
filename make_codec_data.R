@@ -74,3 +74,10 @@ glimpse_schema(d) |>
 CODECtools::glimpse_attr(d) |>
   knitr::kable() |>
   cat(file = "metadata.md", sep = "\n", append = TRUE)
+
+d |>
+  CODECtools::glimpse_schema() |>
+  knitr::kable() |>
+  cat(file = "metadata.md", sep = "\n", append = TRUE)
+
+write_tdr_csv(d)
