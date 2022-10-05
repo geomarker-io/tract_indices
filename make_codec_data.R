@@ -4,16 +4,12 @@ library(CODECtools)
 
 d <- readRDS("census_mega_data_0.2.rds")
 
-nash <- readRDS("~/OneDrive - cchmc/NASH_CRN/Data/nash_crn_census_data_2010.rds") %>%
+nash <- readRDS("~/OneDrive - cchmc/NASH_CRN/Data/nash_crn_census_data_2010.rds") |>
   select(census_tract_id = census_tract_fips,
          sdi, svi_socioeconomic, svi_minority, svi_household_comp,
          svi_housing_transportation, svi, mrfei, food_insecurity_pct)
 
 d <- left_join(d, nash, by = "census_tract_id")
-
-d <- d %>%
-  filter(census_tract_id %in% cincy::tract_tigris_2010$tract_fips,
-         census_tract_vintage == 2010)
 
 d <- d |>
   add_attrs(
@@ -75,4 +71,6 @@ d <- add_type_attrs(d)
 glimpse_schema(d) |>
   knitr::kable()
 
-
+CODECtools::glimpse_attr(d) |>
+  knitr::kable() |>
+  cat(file = "metadata.md", sep = "\n", append = TRUE)
