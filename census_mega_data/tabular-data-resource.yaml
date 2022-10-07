@@ -8,11 +8,7 @@ schema:
     census_tract_id:
       name: census_tract_id
       title: Census Tract Identifier
-      type: .na.character
-    census_tract_vintage:
-      name: census_tract_vintage
-      title: Census Tract Vintage
-      type: number
+      type: string
     adi:
       name: adi
       title: Neighborhood Atlas Area Deprivation Index
@@ -43,42 +39,42 @@ schema:
       description: weighted average of three domain averaged z-scores, nationally
         normed (2015)
       type: number
-    fraction_assisted_income:
-      name: fraction_assisted_income
+    fraction_assisted_income_2018:
+      name: fraction_assisted_income_2018
       title: Fraction Assisted Income
       description: fraction of households receiving public assistance income or food
         stamps or SNAP in the past 12 months (2018)
       type: number
-    fraction_high_school_edu:
-      name: fraction_high_school_edu
+    fraction_high_school_edu_2018:
+      name: fraction_high_school_edu_2018
       title: Fraction High School Education
       description: fraction of population 25 and older with educational attainment
         of at least high school graduation (includes GED equivalency) (2018)
       type: number
-    median_income:
-      name: median_income
+    median_income_2018:
+      name: median_income_2018
       title: Median Household Income
       description: median household income in the past 12 months in 2018 inflation-adjusted
         dollars (2018)
       type: number
-    fraction_no_health_ins:
-      name: fraction_no_health_ins
+    fraction_no_health_ins_2018:
+      name: fraction_no_health_ins_2018
       title: Fraction No Health Insurance
       description: fraction of poulation with no health insurance coverage (2018)
       type: number
-    fraction_poverty:
-      name: fraction_poverty
+    fraction_poverty_2018:
+      name: fraction_poverty_2018
       title: Fraction Poverty
       description: fraction of population with income in past 12 months below poverty
         level (2018)
       type: number
-    fraction_vacant_housing:
-      name: fraction_vacant_housing
+    fraction_vacant_housing_2018:
+      name: fraction_vacant_housing_2018
       title: Fraction Vacant Housing
       description: fraction of houses that are vacant (2018)
       type: number
-    dep_index:
-      name: dep_index
+    dep_index_2018:
+      name: dep_index_2018
       title: Material Deprivation Index
       description: composite index of 6 variables above characterizing community material
         deprivation; range 0 to 1, with higher values indicating higher deprivation
@@ -240,4 +236,120 @@ schema:
       title: Food Insecurity Percentage
       description: estimated percentage of population in food insecure households
         (2019)
+      type: number
+    fraction_poverty:
+      name: fraction_poverty
+      title: Fraction of Households in Poverty
+      description: Fraction of households with income below poverty level within the
+        past 12 months
+      type: number
+    fraction_insured:
+      name: fraction_insured
+      title: Fraction of People Insured
+      description: Fraction of population with health insurance (available from 2012
+        onwards only)
+      type: number
+    fraction_snap:
+      name: fraction_snap
+      title: Fraction of Households Receiving SNAP
+      description: Fraction of households receiving food stamps/SNAP in the past 12
+        months
+      type: number
+    fraction_fam_nospouse:
+      name: fraction_fam_nospouse
+      title: Fraction of family households with a single householder
+      description: Single householder is male or female household, with no spouse
+        present
+      type: number
+    fraction_employment:
+      name: fraction_employment
+      title: Fraction of People Employed
+      description: Fraction of people employed in civilian labor force
+      type: number
+    median_home_value:
+      name: median_home_value
+      title: Median Value of Owner-Occupied Housing Units
+      type: number
+    median_home_value_2010adj:
+      name: median_home_value_2010adj
+      title: Median Value of Owner-Occupied Housing Units (in 2010 USD)
+      type: number
+    fraction_housing_renters:
+      name: fraction_housing_renters
+      title: Fraction of Housing Units Occupied by Renters
+      description: fraction denominator is number of *occupied* housing units
+      type: number
+    median_rent_to_income_percentage:
+      name: median_rent_to_income_percentage
+      title: Median Rent to Income Percentage
+      description: The median of the percentage of rent to income among all renter-occupied
+        housing units
+      type: number
+    fraction_high_rent:
+      name: fraction_high_rent
+      title: Fraction of Housing Units Paying at least 30% of Income on Rent
+      type: number
+    fraction_conditions:
+      name: fraction_conditions
+      title: Fraction of Housing Units with Substandard Housing Conditions
+      description: 'substandard housing: incomplete plumbing or kitchens, overcrowding,
+        30% or more of household income spent on rent or owner costs'
+      type: number
+    fraction_builtbf1970:
+      name: fraction_builtbf1970
+      title: Fraction of Housing Units Built Before 1970
+      type: number
+    fraction_vacant:
+      name: fraction_vacant
+      title: Fraction of Housing Units that are Vacant
+      type: number
+    fraction_nhl:
+      name: fraction_nhl
+      title: Fraction of People Not Hispanic/Latino
+      type: number
+    fraction_nhl_w:
+      name: fraction_nhl_w
+      title: Fraction of People White and Not Hispanic/Latino
+      type: number
+    fraction_nhl_b:
+      name: fraction_nhl_b
+      title: Fraction of People Black and Not Hispanic/Latino
+      type: number
+    fraction_nhl_o:
+      name: fraction_nhl_o
+      title: Fraction of People Not Black, Not White, and Not Hispanic/Latino
+      type: number
+    fraction_hl:
+      name: fraction_hl
+      title: Fraction of People Hispanic/Latino
+      type: number
+    fraction_hl_w:
+      name: fraction_hl_w
+      title: Fraction of People White and Hispanic/Latino
+      type: number
+    fraction_hl_b:
+      name: fraction_hl_b
+      title: Fraction of People Black and Hispanic/Latino
+      type: number
+    fraction_hl_o:
+      name: fraction_hl_o
+      title: Fraction of People Not Black, Not White, and Hispanic/Latino
+      type: number
+    fraction_lesh:
+      name: fraction_lesh
+      title: Fraction of Households Speaking Limited English
+      description: Available from 2016 onwards
+      type: number
+    median_income:
+      name: median_income
+      title: Median Household Income
+      type: number
+    median_income_2010adj:
+      name: median_income_2010adj
+      title: Median Household Income (in 2010 USD)
+      type: number
+    fraction_hs:
+      name: fraction_hs
+      title: Fraction of Adults with At Least High School Education
+      description: Available from 2012 onwards
       type: number
