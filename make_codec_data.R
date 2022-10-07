@@ -182,6 +182,10 @@ hh_acs_recent <- hh_acs |>
 
 d <- left_join(d, hh_acs_recent, by = c("census_tract_id"))
 
+d <- d |>
+  mutate(across(starts_with("n_"), as.integer)) |>
+  mutate(across(where(is.numeric) & !starts_with("n_"), signif, 3))
+
 # write csv and yaml
 write_tdr_csv(d)
 
