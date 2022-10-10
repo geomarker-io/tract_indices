@@ -3,7 +3,7 @@ library(cincy)
 library(CODECtools)
 
 # read latest version of mega data
-d <- readRDS("census_mega_data_0.2.rds")
+d <- readRDS("old_versions/census_mega_data_0.2.rds")
 d <- filter(d, census_tract_vintage == 2010)
 
 # read NASH CRN data and join
@@ -15,13 +15,12 @@ nash <- readRDS("~/OneDrive - cchmc/NASH_CRN/Data/nash_crn_census_data_2010.rds"
 d <- left_join(d, nash, by = "census_tract_id")
 
 d <- rename(d,
-            fraction_assisted_income_2018 = fraction_assisted_income,
-            fraction_high_school_edu_2018 = fraction_high_school_edu,
-            median_income_2018 = median_income,
-            fraction_no_health_ins_2018 = fraction_no_health_ins,
-            fraction_poverty_2018 = fraction_poverty,
-            fraction_vacant_housing_2018 = fraction_vacant_housing,
-            dep_index_2018 = dep_index)
+            dep_index_fraction_assisted_income = fraction_assisted_income,
+            dep_index_fraction_high_school_edu = fraction_high_school_edu,
+            dep_index_median_income = median_income,
+            dep_index_fraction_no_health_ins = fraction_no_health_ins,
+            dep_index_fraction_poverty = fraction_poverty,
+            dep_index_fraction_vacant_housing = fraction_vacant_housing)
 
 # create dataset attrs
 cat("#### Metadata\n\n", file = "metadata.md", append = FALSE)
@@ -29,7 +28,6 @@ d <- d |>
   add_attrs(
     name = "census_mega_data",
     title = "Census-Derived Values and Indices",
-    license = "MIT",
     url = "https://geomarker.io/census_mega_data"
   )
 
@@ -61,25 +59,25 @@ d <-
   add_col_attrs(coi,
                 title = "Child Opportunity Index",
                 description = "weighted average of three domain averaged z-scores, nationally normed (2015)") |>
-  add_col_attrs(fraction_assisted_income_2018,
+  add_col_attrs(dep_index_fraction_assisted_income,
                 title = "Fraction Assisted Income",
                 description = "fraction of households receiving public assistance income or food stamps or SNAP in the past 12 months (2018)") |>
-  add_col_attrs(fraction_high_school_edu_2018,
+  add_col_attrs(dep_index_fraction_high_school_edu,
                 title = "Fraction High School Education",
                 description = "fraction of population 25 and older with educational attainment of at least high school graduation (includes GED equivalency) (2018)") |>
-  add_col_attrs(median_income_2018,
+  add_col_attrs(dep_index_median_income,
                 title = "Median Household Income",
                 description = "median household income in the past 12 months in 2018 inflation-adjusted dollars (2018)") |>
-  add_col_attrs(fraction_no_health_ins_2018,
+  add_col_attrs(dep_index_fraction_no_health_ins,
                 title = "Fraction No Health Insurance",
                 description = "fraction of poulation with no health insurance coverage (2018)") |>
-  add_col_attrs(fraction_poverty_2018,
+  add_col_attrs(dep_index_fraction_poverty,
                 title = "Fraction Poverty",
                 description = "fraction of population with income in past 12 months below poverty level (2018)") |>
-  add_col_attrs(fraction_vacant_housing_2018,
+  add_col_attrs(dep_index_fraction_vacant_housing,
                 title = "Fraction Vacant Housing",
                 description = "fraction of houses that are vacant (2018)") |>
-  add_col_attrs(dep_index_2018,
+  add_col_attrs(dep_index,
                 title = "Material Deprivation Index",
                 description = "composite index of 6 variables above characterizing community material deprivation; range 0 to 1, with higher values indicating higher deprivation (2018)") |>
   add_col_attrs(lead_paint,
@@ -169,18 +167,6 @@ d <- add_type_attrs(d)
 
 glimpse_schema(d) |>
   knitr::kable()
-
-# add harmonized historical ACS data
-options(timeout = 300)
-hh_acs <- CODECtools::read_codec("hh_acs_measures")
-
-hh_acs_recent <- hh_acs |>
-  filter(year == 2019) |>
-  select(-census_tract_vintage,
-         -year,
-         -ends_with("_moe"))
-
-d <- left_join(d, hh_acs_recent, by = c("census_tract_id"))
 
 d <- d |>
   mutate(across(starts_with("n_"), as.integer)) |>
