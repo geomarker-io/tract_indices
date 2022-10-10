@@ -73,6 +73,8 @@ mega_data <- mega_data %>%
 mega_data <- mega_data %>%
   select(-low_food_access_pop)
 
+
 saveRDS(mega_data, 'old_versions/census_mega_data_0.3.rds')
 write_csv(mega_data, 'old_versions/census_mega_data_0.3.csv')
+
 
