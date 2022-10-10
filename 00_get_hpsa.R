@@ -3,15 +3,27 @@ library(sf)
 
 options(timeout = 1000)
 download.file('https://data.hrsa.gov//DataDownload/DD_Files/HPSA_PLYMH_SHP.zip',
-              destfile = 'data/hpsa.zip')
-unzip('data/hpsa.zip', exdir = 'data')
-unlink('data/hpsa.zip')
+              destfile = 'data/hpsa_mh.zip')
+unzip('data/hpsa_mh.zip', exdir = 'data')
+unlink('data/hpsa_mh.zip')
 
-d <- sf::st_read('data/HPSA_PLYMH_SHP_DET_CUR_VX.shp')
+download.file('https://data.hrsa.gov//DataDownload/DD_Files/HPSA_PNTPC_SHP.zip',
+              destfile = 'data/hpsa_pc.zip')
+unzip('data/hpsa_pc.zip', exdir = 'data')
+unlink('data/hpsa_pc.zip')
 
-d <- d %>%
+d_mh <- sf::st_read('data/HPSA_PLYMH_SHP_DET_CUR_VX.shp')
+d_pc <- sf::st_read('data/HPSA_PNTPC_SHP_DET_CUR_VX.shp')
+
+d_mh <- d_mh %>%
   filter(HpsStatCD %in% c("P", "D"), # keep only designated and proposed for withdrawal
          HpsPpTypDe == "Geographic Population") %>%  # keep only geographic HPSAs
+  select(HpsNM) %>%
+  st_make_valid()
+
+d_pc <- d_pc %>%
+  filter(HpsStatCD %in% c("P", "D"), # keep only designated and proposed for withdrawal
+         ) %>%
   select(HpsNM) %>%
   st_make_valid()
 
@@ -22,16 +34,24 @@ states <- tigris::states() %>%
                       'Commonwealth of the Northern Mariana Islands',
                       'Guam', 'American Samoa', 'Puerto Rico'))
 
-all_tracts <- map(states$NAME, ~tigris::tracts(state = .x)) %>%
+all_tracts <- map(states$NAME, ~tigris::tracts(state = .x, year = 2010)) %>%
   bind_rows() %>%
-  st_transform(st_crs(d)) %>%
-  select(census_tract_id = GEOID) %>%
+  st_transform(st_crs(d_mh)) %>%
+  select(census_tract_id = GEOID10) %>%
   st_make_valid()
 
-tract_hpsa <- st_join(all_tracts, d, join = st_within) %>%
+tract_hpsa_mh <- st_join(all_tracts, d_mh, join = st_within) %>%
   st_drop_geometry() %>%
   filter(!duplicated(census_tract_id)) %>%
-  mutate(hpsa = ifelse(is.na(HpsNM), "no", "yes")) %>%
-  select(census_tract_id, hpsa)
+  mutate(hpsa_mh = ifelse(is.na(HpsNM), "no", "yes")) %>%
+  select(census_tract_id, hpsa_mh)
+
+tract_hpsa_pc <- st_join(all_tracts, d_pc, join = st_intersects) %>%
+  st_drop_geometry() %>%
+  filter(!duplicated(census_tract_id)) %>%
+  mutate(hpsa_pc = ifelse(is.na(HpsNM), "no", "yes")) %>%
+  select(census_tract_id, hpsa_pc)
+
+tract_hpsa <- left_join(tract_hpsa_mh, tract_hpsa_pc, by = "census_tract_id")
 
 saveRDS(tract_hpsa, "data/hpsa.rds")

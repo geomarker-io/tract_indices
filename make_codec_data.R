@@ -3,7 +3,7 @@ library(cincy)
 library(CODECtools)
 
 # read latest version of mega data
-d <- readRDS("old_versions/census_mega_data_0.2.rds")
+d <- readRDS("old_versions/census_mega_data_0.3.rds")
 d <- filter(d, census_tract_vintage == 2010)
 
 # read NASH CRN data and join
@@ -119,9 +119,15 @@ d <-
   add_col_attrs(low_food_access_pct,
                 title = "Low Food Access Percentage",
                 description = "percent of tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas (2019)") |>
-  add_col_attrs(hpsa,
+  add_col_attrs(hpsa_mh,
                 title = "Mental Health Professional Shortage Area",
                 description = "mental health professional shortage area yes/no") |>
+  add_col_attrs(hpsa_pc,
+                title = "Primary Care Professional Shortage Area",
+                description = "primary care professional shortage area yes/no") |>
+  add_col_attrs(mua,
+                title = "Medically Underserved Area",
+                description = "medically underserved area yes/no") |>
   add_col_attrs(ice,
                 title = "Racial Economic Index of Concentration at the Extremes",
                 description = "high income white non-Hispanic households versus  low income people of color (not white non-Hispanic) households; -1 to 1 where 1 indicates all high income white households and -1 indicates all low income people of color households (2019)") |>

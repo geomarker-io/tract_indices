@@ -24,7 +24,7 @@ This R code generates the **Recent, Nationwide, Census Tract-Level Mega Dataset*
     + [USDA Food Access Research Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/state-level-estimates-of-low-income-and-low-access-populations/)
     + [Modified Retail Food Environment Index](https://www.cdc.gov/obesity/downloads/census-tract-level-state-maps-mrfei_TAG508.pdf)
     + [feedingamerica.org Food Insecurity Percentage](feedingamerica.org)
-    + [Healthcare Professional Shortage Areas](https://bhw.hrsa.gov/workforce-shortage-areas/shortage-designation)
+    + [Healthcare Professional Shortage and Medically Underserved Areas](https://bhw.hrsa.gov/workforce-shortage-areas/shortage-designation)
     + [Walkability Index](https://www.epa.gov/smartgrowth/national-walkability-index-user-guide-and-methodology)
     
 See [metadata.md](./metadata.md) for detailed metadata and schema information.

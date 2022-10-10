@@ -9,9 +9,11 @@ d <- mega_data %>%
   left_join(cw, by = "census_tract_id_2010") %>%
   relocate(c(census_tract_id_2020, weight), .after = census_tract_id_2010) %>%
   mutate(low_food_access_flag = ifelse(low_food_access_flag == 'yes', 1, 0),
-         hpsa = ifelse(hpsa == 'yes', 1, 0)) # make bivariates numeric for now...
+         hpsa_mh = ifelse(hpsa_mh == 'yes', 1, 0),
+         hpsa_pc = ifelse(hpsa_pc == 'yes', 1, 0),
+         mua = ifelse(mua == 'yes', 1, 0)) # make bivariates numeric for now...
 
-# if 2010 tract splits to mulitple 2020 tracts
+# if 2010 tract splits to multiple 2020 tracts
     ## all 2020 tracts will have same value as 2010 tract
 # if multiple 2010 tracts are combined to 1 2020 tract
     ## use area-weighted average of 2010 tract values
@@ -33,22 +35,30 @@ summary(d$low_food_access_flag)
 d <- d %>%
   mutate(low_food_access_flag = ifelse(low_food_access_flag < 0.5 , "no", "yes"))
 
-summary(d$hpsa)
+summary(d$hpsa_mh)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's
 #  0.0000  0.0000  0.0000  0.2643  1.0000  1.0000    1552
 # 28 tracts between 0.1 and 0.9
+summary(d$hpsa_pc)
+summary(d$mua)
 
 d %>%
-  select(census_tract_id_2020, hpsa) %>%
-  filter(hpsa > 0 & hpsa < 1) %>%
-  mutate(hpsa = ifelse(hpsa <= 0.1 , 0, hpsa),
-         hpsa = ifelse(hpsa >= 0.9 , 1, hpsa)) %>%
-  filter(hpsa > 0 & hpsa < 1) %>%
+  select(census_tract_id_2020, hpsa_mh) %>%
+  filter(hpsa_mh > 0 & hpsa_mh < 1) %>%
+  mutate(hpsa_mh = ifelse(hpsa_mh <= 0.1 , 0, hpsa_mh),
+         hpsa_mh = ifelse(hpsa_mh >= 0.9 , 1, hpsa_mh)) %>%
+  filter(hpsa_mh > 0 & hpsa_mh < 1) %>%
   ggplot() +
   geom_histogram(aes(x = hpsa))
 
 d <- d %>%
-  mutate(hpsa = ifelse(hpsa < 0.5 , "no", "yes"))
+  mutate(hpsa_mh = ifelse(hpsa_mh < 0.5 , "no", "yes"))
+
+d <- d %>%
+  mutate(hpsa_pc = ifelse(hpsa_pc < 0.5 , "no", "yes"))
+
+d <- d %>%
+  mutate(mua = ifelse(mua < 0.5 , "no", "yes"))
 
 # clean up and combine with 2010 tract data
 d <- d %>%
@@ -63,6 +73,6 @@ mega_data <- mega_data %>%
 mega_data <- mega_data %>%
   select(-low_food_access_pop)
 
-saveRDS(mega_data, 'census_mega_data_0.1.rds')
-write_csv(mega_data, 'census_mega_data_0.1.csv')
+saveRDS(mega_data, 'old_versions/census_mega_data_0.3.rds')
+write_csv(mega_data, 'old_versions/census_mega_data_0.3.csv')
 

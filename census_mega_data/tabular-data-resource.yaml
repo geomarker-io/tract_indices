@@ -156,10 +156,15 @@ schema:
       description: percent of tract population living more than 1 mile from nearest
         food store in urban areas, or more than 10 miles in rural areas (2019)
       type: number
-    hpsa:
-      name: hpsa
+    hpsa_mh:
+      name: hpsa_mh
       title: Mental Health Professional Shortage Area
       description: mental health professional shortage area yes/no
+      type: string
+    hpsa_pc:
+      name: hpsa_pc
+      title: Primary Care Professional Shortage Area
+      description: primary care professional shortage area yes/no
       type: string
     ice:
       name: ice
@@ -174,6 +179,11 @@ schema:
       title: Percent Crowding
       description: percent of households with greater than 1 person per room (2019)
       type: number
+    mua:
+      name: mua
+      title: Medically Underserved Area
+      description: medically underserved area yes/no
+      type: string
     pct_1or2_risk_factors:
       name: pct_1or2_risk_factors
       title: Percent 1 or 2 Community Resilience Risk Factors
