@@ -51,6 +51,8 @@ CODECtools::read_codec("census_mega_data")
 
 ## Data Details
 
+In the most recent version of `census_mega_data`, all `census_tract_id`s correspond to 2010 census tract vintages. In past versions, we interpolated data corresponding to 2010 census tracts to 2020 census tract boundaries. 
+
 **Re-estimating 2020 census tract boundaries**
 
 All census tract data were obtained and/or harmonized to 2010 census tract boundaries.  Data were transformed to the 2020 census tract boundaries using area-weighted averages of 2010 data. The file `2020_to_2010_tracts.txt` (obtained from [census.gov](https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html#tract)) contains the area of each 2010 and 2020 tract overlap. These areas were used to calculate weights, defined as the percent of each 2020 tract area that was covered by the 2010 tract. Weights were then inverted, such that each weight is the percent of each 2010 tract area that is covered by a 2020 tract. When multiple 2010 tracts have been combined to a single 2020 tract, 2010 values were area-weighted and averaged. (Yes/no variables were converted to 1/0 before averaging, then assigned "yes" if >= 0.5 or "no" otherwise.) Where one 2010 tract was split to multiple 2020 tracts, 2010 values were propagated to all 2020 tracts.
