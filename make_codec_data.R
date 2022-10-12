@@ -12,31 +12,20 @@ nash <- readRDS("~/OneDrive - cchmc/NASH_CRN/Data/nash_crn_census_data_2010.rds"
          sdi, svi_socioeconomic, svi_minority, svi_household_comp,
          svi_housing_transportation, svi, mrfei, food_insecurity_pct)
 
-d <- left_join(d, nash, by = "census_tract_id")
-
-d <- rename(d,
-            dep_index_fraction_assisted_income = fraction_assisted_income,
-            dep_index_fraction_high_school_edu = fraction_high_school_edu,
-            dep_index_median_income = median_income,
-            dep_index_fraction_no_health_ins = fraction_no_health_ins,
-            dep_index_fraction_poverty = fraction_poverty,
-            dep_index_fraction_vacant_housing = fraction_vacant_housing)
-
-# create dataset attrs
-cat("#### Metadata\n\n", file = "metadata.md", append = FALSE)
-d <- d |>
-  add_attrs(
-    name = "census_mega_data",
-    title = "Census-Derived Values and Indices",
-    url = "https://geomarker.io/census_mega_data"
-  )
-
-CODECtools::glimpse_attr(d) |>
-  knitr::kable() |>
-  cat(file = "metadata.md", sep = "\n", append = TRUE)
-
-d <- mutate(d,
-            census_tract_id = as.character(census_tract_id)) |>
+d <- left_join(d, nash, by = "census_tract_id") |>
+  rename(
+    dep_index_fraction_assisted_income = fraction_assisted_income,
+    dep_index_fraction_high_school_edu = fraction_high_school_edu,
+    dep_index_median_income = median_income,
+    dep_index_fraction_no_health_ins = fraction_no_health_ins,
+    dep_index_fraction_poverty = fraction_poverty,
+    dep_index_fraction_vacant_housing = fraction_vacant_housing) |>
+  mutate(
+    census_tract_id = as.character(census_tract_id),
+    low_food_access_flag = ifelse(low_food_access_flag == "yes", TRUE, FALSE),
+    hpsa_mh = ifelse(hpsa_mh == "yes", TRUE, FALSE),
+    hpsa_pc = ifelse(hpsa_pc == "yes", TRUE, FALSE),
+    mua = ifelse(mua == "yes", TRUE, FALSE)) |>
   select(-census_tract_vintage)
 
 # create column attrs
@@ -97,7 +86,7 @@ d <-
                 description = "Count of vehicles (AADT, avg. annual daily traffic) at major roads within 500 meters, divided by distance in meters (2019)") |>
   add_col_attrs(major_discharger_water,
                 title = "Major Direct Dischargers to Water Indicator",
-                description = " RSEI modeled toxic concentrations at stream segments within 500 m divided by distance in km (2021") |>
+                description = " RSEI modeled toxic concentrations at stream segments within 500 m divided by distance in km (2021)") |>
   add_col_attrs(nat_priority_proximity,
                 title = "Proximity to NPL Sites",
                 description = "count of proposed or listed National Priority List (a.k.a. superfund) sites within 5 km (or nearest one beyond 5 km) (2021)") |>
@@ -115,19 +104,16 @@ d <-
                 description = "annual average PM2.5 level in air (ug/m3) (2018)") |>
   add_col_attrs(low_food_access_flag,
                 title = "Low Food Access Flag",
-                description = "'yes' if tract has at least 500 people or at least 33% of the tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas (2019)") |>
+                description = "TRUE if tract has at least 500 people or at least 33% of the tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas (2019)") |>
   add_col_attrs(low_food_access_pct,
                 title = "Low Food Access Percentage",
                 description = "percent of tract population living more than 1 mile from nearest food store in urban areas, or more than 10 miles in rural areas (2019)") |>
   add_col_attrs(hpsa_mh,
-                title = "Mental Health Professional Shortage Area",
-                description = "mental health professional shortage area yes/no") |>
+                title = "Mental Health Professional Shortage Area") |>
   add_col_attrs(hpsa_pc,
-                title = "Primary Care Professional Shortage Area",
-                description = "primary care professional shortage area yes/no") |>
+                title = "Primary Care Professional Shortage Area") |>
   add_col_attrs(mua,
-                title = "Medically Underserved Area",
-                description = "medically underserved area yes/no") |>
+                title = "Medically Underserved Area") |>
   add_col_attrs(ice,
                 title = "Racial Economic Index of Concentration at the Extremes",
                 description = "high income white non-Hispanic households versus  low income people of color (not white non-Hispanic) households; -1 to 1 where 1 indicates all high income white households and -1 indicates all low income people of color households (2019)") |>
@@ -171,15 +157,21 @@ d <-
 # add type attrs
 d <- add_type_attrs(d)
 
-glimpse_schema(d) |>
-  knitr::kable()
-
 d <- d |>
-  mutate(across(starts_with("n_"), as.integer)) |>
-  mutate(across(where(is.numeric) & !starts_with("n_"), signif, 3))
+  mutate(across(where(is.numeric), signif, 3))
 
-# write csv and yaml
-write_tdr_csv(d)
+# create dataset attrs
+d <- d |>
+  add_attrs(
+    name = "census_mega_data",
+    title = "Census-Derived Values and Indices",
+    url = "https://geomarker.io/census_mega_data"
+  )
+
+cat("#### Metadata\n\n", file = "metadata.md", append = FALSE)
+CODECtools::glimpse_attr(d) |>
+  knitr::kable() |>
+  cat(file = "metadata.md", sep = "\n", append = TRUE)
 
 # add schema to metadata
 cat("\n#### Schema\n\n", file = "metadata.md", append = TRUE)
@@ -188,4 +180,5 @@ d |>
   knitr::kable() |>
   cat(file = "metadata.md", sep = "\n", append = TRUE)
 
-
+# write csv and yaml
+write_tdr_csv(d)
