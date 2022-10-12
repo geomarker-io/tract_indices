@@ -49,7 +49,9 @@ d_kreiger <- d %>%
 d_ice_crowd <- d_kreiger %>%
   select(census_tract_id,
          ice = ice_white_nh_poc,
-         pct_crowding)
+         pct_crowding) %>%
+  mutate(pct_crowding = round(pct_crowding, 1),
+         ice = round(ice, 3))
 
 saveRDS(d_ice_crowd, 'data/kreiger_ice.rds')
 

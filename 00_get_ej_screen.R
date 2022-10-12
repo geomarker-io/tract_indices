@@ -27,6 +27,18 @@ d <- d %>%
   group_by(census_tract_id) %>%
   summarize_if(is.numeric, ~mean(.x))
 
+d$lead_paint <- round(d$lead_paint, 2)
+d$diesel_pm <- round(d$diesel_pm, 3)
+d$cancer_risk <- round(d$cancer_risk, 1)
+d$resp_hazard_ind <- round(d$resp_hazard_ind, 2)
+d$traffic_proximity <- round(d$traffic_proximity, 1)
+d$major_discharger_water <- round(d$major_discharger_water, 5)
+d$nat_priority_proximity <- round(d$nat_priority_proximity, 3)
+d$risk_management_proximity <- round(d$risk_management_proximity, 3)
+d$disposal_proximity <- round(d$disposal_proximity, 3)
+d$ozone_conc <- round(d$ozone_conc, 2)
+d$pm_conc <- round(d$pm_conc, 2)
+
 saveRDS(d, 'data/ej_screen.rds')
 
 
