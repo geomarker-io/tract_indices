@@ -9,14 +9,14 @@ options(timeout = 1000)
 
 download.file(
   url = "https://data.hrsa.gov/DataDownload/DD_Files/MUA_DET.csv",
-  destfile = "data/mua.csv",
+  destfile = "raw-data/mua.csv",
   mode = "wb"
 )
 
-mua <- readr::read_csv("data/mua.csv") %>%
+mua <- readr::read_csv("raw-data/mua.csv") %>%
   filter(`MUA/P Status Code` %in% c("P", "D")) %>%
   filter(`Designation Type Code` %in% c("MUA", "MUA-GE")) %>%
-  mutate(mua = "Yes") %>%
+  mutate(mua = TRUE) %>%
   select(
     census_tract_fips = `MUA/P Area Code`,
     state_county_fips = `State and County Federal Information Processing Standard Code`,
@@ -71,8 +71,8 @@ mua_csd_overlap <- mua_tracts_overlaps %>%
   left_join(mua_tracts_contains %>% st_drop_geometry(), by = "census_tract_fips") %>%
   left_join(mua_tracts_within %>% st_drop_geometry(), by = "census_tract_fips") %>%
   mutate(
-    overlaps_csd_mua = ifelse(mua.cs.x == "Yes" | mua.cs.y == "Yes" | mua.cs == "Yes", "Yes", "No"),
-    overlaps_csd_mua = ifelse(is.na(overlaps_csd_mua), "No", overlaps_csd_mua)
+    overlaps_csd_mua = ifelse(mua.cs.x == TRUE | mua.cs.y == TRUE | mua.cs == TRUE, TRUE, FALSE),
+    overlaps_csd_mua = ifelse(is.na(overlaps_csd_mua), FALSE, overlaps_csd_mua)
   ) %>%
   select(census_tract_fips, overlaps_csd_mua) %>%
   filter(!duplicated(census_tract_fips)) %>%
@@ -86,10 +86,11 @@ mua <- full_join(tracts, mua.ct, by = "census_tract_fips") %>%
   mutate(state_county_fips = substr(census_tract_fips, 1, 5)) %>%
   left_join(., mua.sc, by = "state_county_fips") %>%
   mutate(
-    mua = ifelse(mua.ct == "Yes" | mua.sc == "Yes" | overlaps_csd_mua == "Yes", "yes", "no"), # 1='Yes' / 0='No'
-    mua = ifelse(is.na(mua), "no", mua)
+    mua = ifelse(mua.ct == TRUE | mua.sc == TRUE | overlaps_csd_mua == TRUE, TRUE, FALSE),
+    mua = ifelse(is.na(mua), FALSE, mua)
   ) %>%
   select(census_tract_id = census_tract_fips, mua) %>%
-  st_drop_geometry() %>% as_tibble(mua)
+  st_drop_geometry() %>%
+  as_tibble(mua)
 
 saveRDS(mua, "data/mua.rds")

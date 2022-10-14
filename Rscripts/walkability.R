@@ -3,11 +3,11 @@ library(sf)
 
 options(timeout=1000)
 download.file('https://edg.epa.gov/EPADataCommons/public/OA/WalkabilityIndex.zip',
-              destfile='data/walkability.zip')
-unzip('data/walkability.zip', exdir = "data")
-unlink('data/walkability.zip')
+              destfile='raw-data/walkability.zip')
+unzip('raw-data/walkability.zip', exdir = "raw-data")
+unlink('raw-data/walkability.zip')
 
-walkability <- st_read('data/Natl_WI.gdb/')
+walkability <- st_read('raw-data/Natl_WI.gdb/')
 
 walkability <- walkability %>%
   sf::st_drop_geometry() %>%

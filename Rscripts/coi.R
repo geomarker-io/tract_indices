@@ -1,11 +1,11 @@
 library(tidyverse)
 
 download.file('https://data.diversitydatakids.org/datastore/zip/080cfe52-90aa-4925-beaa-90efb04ab7fb?format=csv',
-              destfile = 'data/coi.zip')
-unzip('data/coi.zip', exdir = 'data')
-unlink('data/coi.zip')
+              destfile = 'raw-data/coi.zip')
+unzip('raw-data/coi.zip', exdir = 'raw-data')
+unlink('raw-data/coi.zip')
 
-d <- read_csv('data/index.csv')
+d <- read_csv('raw-data/index.csv')
 
 d <- d %>%
   filter(year == 2015) %>%

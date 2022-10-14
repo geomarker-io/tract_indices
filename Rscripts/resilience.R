@@ -1,9 +1,9 @@
 library(tidyverse)
 
 download.file('https://www2.census.gov/programs-surveys/demo/datasets/community-resilience/2019/CRE_19_Tract.csv',
-              destfile = 'data/resilience.csv')
+              destfile = 'raw-data/resilience.csv')
 
-d <- read_csv('data/resilience.csv')
+d <- read_csv('raw-data/resilience.csv')
 
 d %>%
   transmute(census_tract_id = glue::glue('{STATE}{COUNTY}{TRACT}'),
