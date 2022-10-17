@@ -1,8 +1,8 @@
-# Recent, Nationwide, Census Tract-Level Mega Dataset
+# Census Tract-Level Neighborhood Indices
 
 ## About
 
-This R code generates the **Recent, Nationwide, Census Tract-Level Mega Dataset** (`census_mega_data`) data resource. This dataset is a compilation of several census-based data products at the census tract level, including 
+This R code generates the **Census Tract-Level Neighborhood Indices** (`tract_indices`) data resource. This dataset is a compilation of several open data products at the census tract-level, including 
 
 - **Socioeconomic Indices**
   
@@ -14,7 +14,6 @@ This R code generates the **Recent, Nationwide, Census Tract-Level Mega Dataset*
     + [Social Vulnerability Index](https://www.atsdr.cdc.gov/placeandhealth/svi/index.html)
     + [Kreiger Racial and Socioeconomic Index of Concentration at the Extremes](https://www.hsph.harvard.edu/thegeocodingproject/covid-19-resources/)
     
-
 - **Environmental Indices**
 
     + [EJ Screen](https://www.epa.gov/ejscreen/overview-environmental-indicators-ejscreen)
@@ -31,27 +30,16 @@ See [metadata.md](./metadata.md) for detailed metadata and schema information.
 
 ## Accessing Data
 
-**CSV**
-
-Data as a CSV file is stored on AWS S3 at [`s3://codec-data/census_mega_data/census_mega_data.csv`](https://codec-data.s3.amazonaws.com/census_mega_data/census_mega_data.csv). 
-
-To read this CSV file into R directly from its online location, use: 
+Read this CSV file into R directly from the [release](https://github.com/geomarker-io/tract_indices/releases) with: 
 
 ```
-readr::read_csv("https://codec-data.s3.amazonaws.com/census_mega_data/census_mega_data.csv")
+readr::read_csv("https://github.com/geomarker-io/tract_indices/releases/download/0.3/tract_indices_0.3.csv")
 ```
 
-**CODEC tabular-data-resource**
-
-Data as a CODEC tabular-data-resource are stored on AWS S3 (`s3://codec-data/census_mega_data/`). Use the following to read this data and its [metadata](https://geomarker.io/CODECtools/articles/codec-metadata.html) into R, downloading the tabular-data-resource to the working directory first, if necessary:
-
-```
-CODECtools::read_codec("census_mega_data")
-```
+Metadata can be imported from the accompanying `tabular-data-resource.yaml` file by using [{CODECtools}](https://geomarker.io/CODECtools/).
 
 ## Data Details
 
 - **Rounding:** All numeric variables are expressed using 3 significant digits.
-
 - **Temporality:** All `census_tract_id`s correspond to the 2010 census tract vintage.
 
