@@ -1,11 +1,12 @@
 #### Metadata
 
-|name  |value                                   |
-|:-----|:---------------------------------------|
-|name  |tract_indices                           |
-|path  |tract_indices.csv                       |
-|title |Census Tract-Level Neighborhood Indices |
-|url   |https://geomarker.io/tract_indices      |
+|name     |value                                   |
+|:--------|:---------------------------------------|
+|name     |tract_indices                           |
+|path     |tract_indices.csv                       |
+|version  |0.3.0                                   |
+|title    |Census Tract-Level Neighborhood Indices |
+|homepage |https://geomarker.io/tract_indices      |
 
 #### Schema
 
