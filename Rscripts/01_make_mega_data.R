@@ -15,9 +15,11 @@ d <- d |>
 # create dataset attrs
 d <- d |>
   add_attrs(
-    name = "tract_level_indices",
-    title = "Tract Level Indices",
-    url = "https://geomarker.io/tract_level_indices"
+    name = "tract_indices",
+    path = "tract_indices.csv",
+    title = "Census Tract-Level Neighborhood Indices",
+    version = "0.3.0",
+    homepage = "https://geomarker.io/tract_indices"
   )
 
 # create column attrs
