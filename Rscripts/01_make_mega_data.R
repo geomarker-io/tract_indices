@@ -19,7 +19,7 @@ d <- d |>
     path = "tract_indices.csv",
     title = "Census Tract-Level Neighborhood Indices",
     version = "0.3.0",
-    description = "A collection of census-derived indices for census tracts in Hamilton County",
+    description = "A collection of census-derived indices for all census tracts in the U.S.",
     homepage = "https://geomarker.io/tract_indices"
   )
 
