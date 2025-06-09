@@ -5,31 +5,22 @@ library(tidyverse)
 d <- read_csv("data-raw/EJI_2024_United_States.csv") |>
   select(
     census_tract_id_2020 = GEOID_2020,
-    E_OZONE,
-    EPL_OZONE,
-    E_PM,
-    EPL_PM,
-    E_DSLPM,
-    EPL_DSLPM,
-    E_TOTCR,
-    EPL_TOTCR,
-    E_PARK,
-    EPL_PARK,
-    E_WLKIND,
-    EPL_WLKIND,
-    E_RAIL,
-    EPL_RAIL,
-    E_AIRPRT,
-    EPL_AIRPRT
-  )
-
-#ozone, pm25, diesel_pm, air_toxics_cancer_risk, lack_of_parks, lack_of_walkability, railways, airports
-
-d_dict <- read_csv("data-raw/EJI_DATADICTIONARY_2024.csv", skip = 1) |>
-  filter(`2024 VARIABLE NAME` %in% names(d)) |>
-  select(
-    variable_name = `2024 VARIABLE NAME`,
-    description = `2024 VARIABLE DESCRIPTION`
+    high_ozone_days = E_OZONE,
+    high_ozone_rank = EPL_OZONE,
+    high_pm_days = E_PM,
+    high_pm_rank = EPL_PM,
+    diesel_pm_conc = E_DSLPM,
+    diesel_pm_rank = EPL_DSLPM,
+    air_toxics_cancer_risk = E_TOTCR,
+    air_toxics_cancer_risk_rank = EPL_TOTCR,
+    prop_near_parks = E_PARK,
+    lack_of_parks = EPL_PARK,
+    walkability = E_WLKIND,
+    lack_of_walkability = EPL_WLKIND,
+    prop_near_railway = E_RAIL,
+    railway_proximity_rank = EPL_RAIL,
+    prop_near_airport = E_AIRPRT,
+    airport_proximity_rank = EPL_AIRPRT
   )
 
 saveRDS(d, 'data/eji.rds')
