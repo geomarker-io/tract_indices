@@ -7,9 +7,9 @@ This R code generates the **Census Tract-Level Neighborhood Indices** (`tract_in
 - **Socioeconomic Indices**
   
     + 2022 [Neighborhood Atlas Area Deprivation Index](https://www.neighborhoodatlas.medicine.wisc.edu/) aggregated to 2020 census tract geographic boundaries
-    + [Childhood Opportunity Index 3.0 overall index and three domains](https://data.diversitydatakids.org/dataset/coi30-2010-tracts-child-opportunity-index-3-0-database--2010-census-tracts/resource/0c292d45-8a97-494a-908a-3f937516da3a#dictionary_anchor) interpolated from 2010 to 2020 census tract boundaries
+    + 2021 [Childhood Opportunity Index 3.0 overall index and three domains](https://data.diversitydatakids.org/dataset/coi30-2010-tracts-child-opportunity-index-3-0-database--2010-census-tracts/resource/0c292d45-8a97-494a-908a-3f937516da3a#dictionary_anchor) interpolated from 2010 to 2020 census tract boundaries
     + 2023 [Community Material Deprivation Index](https://geomarker.io/dep_index/)
-    + [Kreiger Racial and Socioeconomic Index of Concentration at the Extremes](https://www.hsph.harvard.edu/thegeocodingproject/covid-19-resources/) calculated using 2023 ACS data from the [hh_acs_measures](https://geomarker.io/hh_acs_measures/) data resource
+    + [Kreiger Racial and Socioeconomic Index of Concentration at the Extremes](https://www.hsph.harvard.edu/thegeocodingproject/covid-19-resources/) calculated using 2023 ACS data
     
 - **Environmental Indices**
 
