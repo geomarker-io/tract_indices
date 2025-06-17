@@ -22,5 +22,6 @@ d_dpkg <-
     description = paste(readLines(fs::path("metadata.md")), collapse = "\n")
   )
 
-# write tdr
+# write tdr and csv
+write_csv(d_dpkg, "data/tract_indices_2025.csv")
 dpkg::dpkg_gh_release(d_dpkg, draft = FALSE)
