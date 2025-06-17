@@ -33,19 +33,10 @@
     + 2024 [EJI](https://www.atsdr.cdc.gov/place-health/php/eji/?CDC_AAref_Val=https://www.atsdr.cdc.gov/placeandhealth/eji/index.html)
 
             - `high_ozone_days`: The annual mean number of days above the regulatory standard for Ozone (O3), averaged over 3-years 
-            - `high_ozone_rank`: Percentile rank of annual mean days above O3 regulatory standard - 3-year average  
             - `high_pm_days`: The annual mean number of days above the regulatory standard for Particulate Matter 2.5 (PM2.5), averaged over 3-years  
-            - `high_pm_rank`: Percentile rank of annual mean days above PM2.5 regulatory standard - 3-year average
             - `diesel_pm_conc`: Ambient concentrations of diesel particulate matter 
-            - `diesel_pm_rank`: Percentile rank of ambient concentrations of diesel PM/m3  
             - `air_toxics_cancer_risk`: The likelihood of developing cancer from air toxics over the course of a lifetime, assuming continuous exposure 
-            - `air_toxics_cancer_risk_rank`: Percentile rank of the probability of contracting cancer over the course of a lifetime, assuming continuous exposure
             - `prop_near_parks`: The proportion the census tract that is within a 1-mi buffer of a park or greenspace
-            - `lack_of_parks`: The inverse of the percentile rank of the proportion of tract's area within 1-mi buffer of green space, to represent tracts that are not within 1-mi of a park or greenspace
             - `walkability`: The National Walkability Index (NWI) rank, which ranks block groups according to their relative walkability, aggregated to the census tract level 
-            - `lack_of_walkability`: The inverse of the percentile rank of the National Walkability Index (NWI) estimate
             - `prop_near_railway`: The proportion of the census tract within a 1-mi buffer of a railway 
-            - `railway_proximity_rank`: Percentile rank of the proportion of tract's area within 1-mi buffer of railway
             - `prop_near_airport`: The proportion of the census tract that is within a 1-mi buffer of an airport    
-            - `airport_proximity_rank`: Percentile rank of the proportion of tract's area within 1-mi buffer of airport
-
