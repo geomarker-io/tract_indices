@@ -23,5 +23,5 @@ d_dpkg <-
   )
 
 # write tdr and csv
-write_csv(d_dpkg, "data/tract_indices_2025.csv")
+write_csv(d_dpkg, "data-raw/tract_indices_2025.csv")
 dpkg::dpkg_gh_release(d_dpkg, draft = FALSE)
