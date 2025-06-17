@@ -6,40 +6,34 @@ This R code generates the **Census Tract-Level Neighborhood Indices** (`tract_in
 
 - **Socioeconomic Indices**
   
-    + [Neighborhood Atlas Area Deprivation Index](https://www.neighborhoodatlas.medicine.wisc.edu/)
-    + [Childhood Opportunity Index](https://data.diversitydatakids.org/dataset/coi20-child-opportunity-index-2-0-database/resource/080cfe52-90aa-4925-beaa-90efb04ab7fb#dictionary_anchor)
-    + [Community Material Deprivation Index](https://geomarker.io/dep_index/)
-    + [Community Resilience](https://www2.census.gov/programs-surveys/demo/technical-documentation/community-resilience/2019/cre_file_layout_2019.pdf)
-    + [Social Deprivation Index](https://www.graham-center.org/rgc/maps-data-tools/sdi/social-deprivation-index.html)
-    + [Social Vulnerability Index](https://www.atsdr.cdc.gov/placeandhealth/svi/index.html)
-    + [Kreiger Racial and Socioeconomic Index of Concentration at the Extremes](https://www.hsph.harvard.edu/thegeocodingproject/covid-19-resources/)
+    + 2022 [Neighborhood Atlas Area Deprivation Index](https://www.neighborhoodatlas.medicine.wisc.edu/) aggregated to 2020 census tract geographic boundaries
+    + 2021 [Childhood Opportunity Index 3.0 overall index and three domains](https://data.diversitydatakids.org/dataset/coi30-2010-tracts-child-opportunity-index-3-0-database--2010-census-tracts/resource/0c292d45-8a97-494a-908a-3f937516da3a#dictionary_anchor) interpolated from 2010 to 2020 census tract boundaries
+    + 2023 [Community Material Deprivation Index](https://geomarker.io/dep_index/)
+    + [Kreiger Racial and Socioeconomic Index of Concentration at the Extremes](https://www.hsph.harvard.edu/thegeocodingproject/covid-19-resources/) calculated using 2023 ACS data
     
 - **Environmental Indices**
 
-    + [EJ Screen](https://www.epa.gov/ejscreen/overview-environmental-indicators-ejscreen)
-
-- **Food and Medical Care Access Indices**
-
-    + [USDA Food Access Research Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/state-level-estimates-of-low-income-and-low-access-populations/)
-    + [Modified Retail Food Environment Index](https://www.cdc.gov/obesity/downloads/census-tract-level-state-maps-mrfei_TAG508.pdf)
-    + [feedingamerica.org Food Insecurity Percentage](feedingamerica.org)
-    + [Healthcare Professional Shortage and Medically Underserved Areas](https://bhw.hrsa.gov/workforce-shortage-areas/shortage-designation)
-    + [Walkability Index](https://www.epa.gov/smartgrowth/national-walkability-index-user-guide-and-methodology)
+    + 2024 [EJI](https://www.atsdr.cdc.gov/place-health/php/eji/?CDC_AAref_Val=https://www.atsdr.cdc.gov/placeandhealth/eji/index.html)
     
 See [metadata.md](./metadata.md) for detailed metadata and schema information.
 
 ## Accessing Data
 
+Read the {[dpkg](https://github.com/cole-brokamp/dpkg)} directly into R with:
+
+```
+dpkg::stow("https://github.com/geomarker-io/tract_indices/releases/download/2025/tract_indices.parquet") |>
+	dpkg::read_dpkg()
+```
+
 Read this CSV file into R directly from the [release](https://github.com/geomarker-io/tract_indices/releases) with: 
 
 ```
-readr::read_csv("https://github.com/geomarker-io/tract_indices/releases/download/v0.3.0/tract_indices.csv")
+readr::read_csv("https://github.com/geomarker-io/tract_indices/releases/download/2025/tract_indices.csv")
 ```
-
-Metadata can be imported from the accompanying `tabular-data-resource.yaml` file by using [{CODECtools}](https://geomarker.io/CODECtools/).
 
 ## Data Details
 
 - **Rounding:** All numeric variables are expressed using 3 significant digits.
-- **Temporality:** All `census_tract_id`s correspond to the 2010 census tract vintage.
+- **Temporality:** All `census_tract_id`s correspond to the 2020 census tract vintage.
 
